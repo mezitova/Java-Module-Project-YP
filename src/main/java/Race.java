@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Race {
-    Car winnerCar;
+    //Car winnerCar;
     double winnerDistance = 0;
 
     public Car calculateWinner(ArrayList<Car> cars) {
