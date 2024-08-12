@@ -9,7 +9,7 @@ public class Main {
         //System.out.println(cars);
         Race race = new Race();
         Car winnerCar = race.calculateWinner(cars);
-        System.out.println(String.format("Самая быстрая машина: %s", winnerCar.name));
+        System.out.printf("Самая быстрая машина: %s%n", winnerCar.name);
 
 
     }
@@ -17,24 +17,36 @@ public class Main {
     public static void start(int n, ArrayList<Car> cars) {
         Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < n; i++) {
-            System.out.println(String.format("— Введите название машины №%d", i + 1));
-            String name = scanner.nextLine();
-            double speed;
-            boolean outOfBounds;
+            String name;
+            boolean isIncorrect;
             do {
-                System.out.println(String.format("— Введите скорость машины №%d", i + 1));
+                System.out.printf("— Введите название машины №%d%n", i + 1);
+                name = scanner.nextLine();
+                isIncorrect = name.isEmpty();
+                if (isIncorrect) {
+                    System.out.println("Некорректный ввод. Повторите.");
+                }
+            } while (isIncorrect);
 
-                //double speed = scanner.nextDouble(); // эквивалентно тому, что ниже
-                //double speed = Double.parseDouble(scanner.next()); // next считывает до пробела
-                //nextLine - считывает до переноса строки
-
-                speed = Double.parseDouble(scanner.nextLine());
-                outOfBounds = (speed <= 0 || speed >= 250);
-                if (outOfBounds) {
+            double speed = -1;
+            boolean outOfBounds;
+            boolean isNotANumber;
+            do {
+                System.out.printf("— Введите скорость машины №%d%n", i + 1);
+                if (scanner.hasNextDouble()) {
+                    isNotANumber = false;
+                    speed = Double.parseDouble(scanner.nextLine());
+                    outOfBounds = (speed < 0 || speed > 250);
+                } else {
+                    isNotANumber = true;
+                    outOfBounds = false;
+                }
+                if (outOfBounds || isNotANumber) {
                     System.out.println("Неправильная скорость");
+
                 }
 
-            } while (outOfBounds);
+            } while (outOfBounds || isNotANumber);
 
             Car car = new Car(name, speed);
             cars.add(car);
