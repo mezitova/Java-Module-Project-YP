@@ -35,15 +35,18 @@ public class Main {
                 System.out.printf("— Введите скорость машины №%d%n", i + 1);
                 if (scanner.hasNextDouble()) {
                     isNotANumber = false;
-                    speed = Double.parseDouble(scanner.nextLine());
+                    speed = scanner.nextDouble();
                     outOfBounds = (speed < 0 || speed > 250);
                 } else {
                     isNotANumber = true;
                     outOfBounds = false;
+                    scanner.next(); //аналогично строке 39, чтобы перенести курсор в конец строки типа nextString
                 }
+
+                scanner.nextLine(); // вызываем, чтобы промотать крайний enter
+
                 if (outOfBounds || isNotANumber) {
                     System.out.println("Неправильная скорость");
-
                 }
 
             } while (outOfBounds || isNotANumber);
